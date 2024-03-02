@@ -74,7 +74,7 @@ extension Endpoint {
             case .mobileAccess(let vehicleID):
                 return "/api/1/vehicles/\(vehicleID.id)/mobile_enabled"
             case .allStates(let vehicleID):
-            return "/api/1/vehicles/\(vehicleID.id)/vehicle_data?endpoints=location_data"
+            return "/api/1/vehicles/\(vehicleID.id)/vehicle_data"
             case .chargeState(let vehicleID):
                 return "/api/1/vehicles/\(vehicleID.id)/data_request/charge_state"
             case .climateState(let vehicleID):
