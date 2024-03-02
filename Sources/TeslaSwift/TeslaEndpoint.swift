@@ -24,7 +24,7 @@ enum Endpoint {
 	case vehicles
     case vehicleSummary(vehicleID: VehicleId)
 	case mobileAccess(vehicleID: VehicleId)
-    case allStates(vehicleID: VehicleId, location: Bool = false)
+    case allStates(vehicleID: VehicleId)
 	case chargeState(vehicleID: VehicleId)
 	case climateState(vehicleID: VehicleId)
 	case driveState(vehicleID: VehicleId)
@@ -73,8 +73,8 @@ extension Endpoint {
                 return "/api/1/vehicles/\(vehicleID.id)"
             case .mobileAccess(let vehicleID):
                 return "/api/1/vehicles/\(vehicleID.id)/mobile_enabled"
-            case .allStates(let vehicleID, let location):
-            return "/api/1/vehicles/\(vehicleID.id)/vehicle_data\(location == true ? "?endpoints=location_data" : "")"
+            case .allStates(let vehicleID):
+            return "/api/1/vehicles/\(vehicleID.id)/vehicle_data?endpoints=location_data"
             case .chargeState(let vehicleID):
                 return "/api/1/vehicles/\(vehicleID.id)/data_request/charge_state"
             case .climateState(let vehicleID):

@@ -349,10 +349,10 @@ extension TeslaSwift {
      
      - returns: A completion handler with all the data
      */
-    public func getAllData(_ vehicle: Vehicle, includingLocation: Bool = false) async throws -> VehicleExtended {
+    public func getAllData(_ vehicle: Vehicle) async throws -> VehicleExtended {
         _ = try await checkAuthentication()
         let vehicleID = vehicle.id!
-        let response: Response<VehicleExtended> = try await request(.allStates(vehicleID: vehicleID, location: includingLocation))
+        let response: Response<VehicleExtended> = try await request(.allStates(vehicleID: vehicleID))
         return response.response
 	}
 	
