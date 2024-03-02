@@ -63,11 +63,11 @@ extension TeslaSwift {
         }
     }
     
-    public func getAllData(_ vehicle: Vehicle) -> Future<VehicleExtended, Error> {
+    public func getAllData(_ vehicle: Vehicle, includingLocation: Bool) -> Future<VehicleExtended, Error> {
         Future { promise in
             Task {
                 do {
-                    let result = try await self.getAllData(vehicle)
+                    let result = try await self.getAllData(vehicle, includingLocation: includingLocation)
                     promise(.success(result))
                 } catch let error {
                     promise(.failure(error))
