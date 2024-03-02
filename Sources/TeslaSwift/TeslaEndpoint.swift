@@ -129,14 +129,17 @@ extension Endpoint {
 
     var queryParameters: [URLQueryItem] {
         switch self {
-            case let .oAuth2Authorization(auth):
-                return auth.parameters()
-            case let .oAuth2revoke(token):
-                return [URLQueryItem(name: "token", value: token)]
-            case let .getEnergySiteHistory(_, period):
-                return [URLQueryItem(name: "period", value: period.rawValue), URLQueryItem(name: "kind", value: "energy")]
-            default:
-                return []
+        case let .oAuth2Authorization(auth):
+            return auth.parameters()
+        case let .oAuth2revoke(token):
+            return [URLQueryItem(name: "token", value: token)]
+        case let .getEnergySiteHistory(_, period):
+            return [URLQueryItem(name: "period", value: period.rawValue), URLQueryItem(name: "kind", value: "energy")]
+        case .allStates(vehicleID: _):
+            return [URLQueryItem(name: "endpoints", value: "location_data")]
+            
+        default:
+            return []
         }
     }
 
