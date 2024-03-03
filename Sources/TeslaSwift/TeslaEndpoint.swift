@@ -136,7 +136,7 @@ extension Endpoint {
         case let .getEnergySiteHistory(_, period):
             return [URLQueryItem(name: "period", value: period.rawValue), URLQueryItem(name: "kind", value: "energy")]
         case .allStates(vehicleID: _):
-            return [URLQueryItem(name: "endpoints", value: "location_data")]
+            return [URLQueryItem(name: "endpoints", value: "location_data;charge_state")]
             
         default:
             return []
