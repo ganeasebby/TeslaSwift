@@ -25,6 +25,7 @@ enum Endpoint {
     case vehicleSummary(vehicleID: VehicleId)
 	case mobileAccess(vehicleID: VehicleId)
     case allStates(vehicleID: VehicleId)
+    case vehicleLocation(vehicleID: VehicleId)
 	case chargeState(vehicleID: VehicleId)
 	case climateState(vehicleID: VehicleId)
 	case driveState(vehicleID: VehicleId)
@@ -75,6 +76,8 @@ extension Endpoint {
                 return "/api/1/vehicles/\(vehicleID.id)/mobile_enabled"
             case .allStates(let vehicleID):
             return "/api/1/vehicles/\(vehicleID.id)/vehicle_data"
+            case .vehicleLocation(let vehicleID):
+                return "/api/1/vehicles/\(vehicleID.id)/vehicle_data"
             case .chargeState(let vehicleID):
                 return "/api/1/vehicles/\(vehicleID.id)/data_request/charge_state"
             case .climateState(let vehicleID):
@@ -122,7 +125,7 @@ extension Endpoint {
 		switch self {
             case .revoke, .oAuth2Token, .oAuth2TokenCN, .wakeUp, .partnerAccounts, .chargeHistory, .command, .signedCommand:
                 return "POST"
-            case .me, .region, .vehicles, .vehicleSummary, .mobileAccess, .allStates, .chargeState, .climateState, .driveState, .guiSettings, .vehicleState, .vehicleConfig, .nearbyChargingSites, .oAuth2Authorization, .oAuth2revoke, .oAuth2AuthorizationCN, .oAuth2revokeCN, .products, .getEnergySiteStatus, .getEnergySiteLiveStatus, .getEnergySiteInfo, .getEnergySiteHistory, .getBatteryStatus, .getBatteryData, .getBatteryPowerHistory:
+        case .me, .region, .vehicles, .vehicleSummary, .mobileAccess, .allStates, .vehicleLocation, .chargeState, .climateState, .driveState, .guiSettings, .vehicleState, .vehicleConfig, .nearbyChargingSites, .oAuth2Authorization, .oAuth2revoke, .oAuth2AuthorizationCN, .oAuth2revokeCN, .products, .getEnergySiteStatus, .getEnergySiteLiveStatus, .getEnergySiteInfo, .getEnergySiteHistory, .getBatteryStatus, .getBatteryData, .getBatteryPowerHistory:
                 return "GET"
 		}
 	}
@@ -135,8 +138,8 @@ extension Endpoint {
             return [URLQueryItem(name: "token", value: token)]
         case let .getEnergySiteHistory(_, period):
             return [URLQueryItem(name: "period", value: period.rawValue), URLQueryItem(name: "kind", value: "energy")]
-        case .allStates(vehicleID: _):
-            return [URLQueryItem(name: "endpoints", value: "location_data%3Bcharge_state%3Bvehicle_state")]
+        case .vehicleLocation(vehicleID: _):
+            return [URLQueryItem(name: "endpoints", value: "location_data")]
             
         default:
             return []
