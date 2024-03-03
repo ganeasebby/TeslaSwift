@@ -355,6 +355,18 @@ extension TeslaSwift {
         let response: Response<VehicleExtended> = try await request(.allStates(vehicleID: vehicleID))
         return response.response
 	}
+    
+    /**
+     Fetches the vehicle location
+     
+     - returns: A completion handler with all the data
+     */
+    public func getvehicleData(_ vehicle: Vehicle) async throws -> VehicleExtended {
+        _ = try await checkAuthentication()
+        let vehicleID = vehicle.id!
+        let response: Response<VehicleExtended> = try await request(.vehicleLocation(vehicleID: vehicleID))
+        return response.response
+    }
 	
 	/**
 	Fetches the vehicle mobile access state
